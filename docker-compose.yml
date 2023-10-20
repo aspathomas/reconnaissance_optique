@@ -1,0 +1,27 @@
+# Use postgres/example user/password credentials
+version: "3.7"
+
+networks:
+  bacchus-network:
+    driver: bridge
+
+
+services:
+  web:
+    restart: always
+    build: 
+      context: ./web
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./web/:/app/
+    ports:
+      - 5000:5000
+    expose:
+      - 5000
+    networks:
+      - bacchus-network
+    environment:
+      - FLASK_APP=app
+      - FLASK_DEBUG=1
+      - DATABASE_URL=postgresql://admin2022:toto123@db:5432/urbanisation
+    command: ["python", "app.py"]
