@@ -1,0 +1,1 @@
+loaded_model = keras.models.load_model('emnist_model.h5')

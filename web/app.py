@@ -17,4 +17,4 @@ def process():
 if __name__ == '__main__':
     #define the localhost ip and the port that is going to be used
     # in some future article, we are going to use an env variable instead a hardcoded port 
-    app.run(host='0.0.0.0', port=os.getenv('PORT'))
+    app.run(host='0.0.0.0', port=int(os.getenv('PORT', 5000)), debug=True)
