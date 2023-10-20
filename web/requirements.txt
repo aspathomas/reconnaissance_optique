@@ -1,0 +1,6 @@
+Flask==2.3.2
+psycopg2-binary==2.9.6
+requests==2.27
+PyJWT==2.8.0
+pytesseract==0.3.10
+NumPy==1.25.2
