@@ -23,6 +23,7 @@ services:
     networks:
       - bacchus-network
     environment:
-      - FLASK_APP=app
+      - FLASK_ENV=development
       - FLASK_DEBUG=1
+      - PYTHONDONTWRITEBYTECODE=1
     command: ["python", "app.py"]
