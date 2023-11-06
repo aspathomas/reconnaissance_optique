@@ -5,3 +5,4 @@ PyJWT==2.8.0
 pytesseract==0.3.10
 NumPy==1.25.2
 tensorflow==2.14.0
+opencv-python==4.8.1.78
