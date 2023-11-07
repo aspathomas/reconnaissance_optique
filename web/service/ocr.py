@@ -16,7 +16,7 @@ class Ocr:
         with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as temp_file:
             input_image = Image.open(file)
             input_image.save(temp_file.name)
-        source_image = cv2.imread(temp_file)
+        source_image = cv2.imread(temp_file.name)
         source_gray = cv2.cvtColor(source_image, cv2.COLOR_BGR2GRAY)
         _, binary_image = cv2.threshold(source_gray, 128, 255, cv2.THRESH_BINARY)
         inverted_image = cv2.bitwise_not(binary_image)
@@ -28,7 +28,7 @@ class Ocr:
         for i, contour in enumerate(contours):
             x, y, w, h = cv2.boundingRect(contour)
             shape = source_gray[y:y+h, x:x+w]
-            shape_filename = os.path.join(output_dir, f"letter_{i}.jpg")
+            shape_filename = os.path.join(output_dir, f"letter_{i}.png")
             cv2.imwrite(shape_filename, shape)
 
         return output_dir

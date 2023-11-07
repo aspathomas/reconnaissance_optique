@@ -16,13 +16,21 @@ class ProcessingPicture:
         word = ""
         for png_file in png_files:
             word += ocr.findLetter(png_file)
+        
         score = {}
+        with open('mots.txt', 'r') as file:
+            lines = file.readlines()
+        mots = []
 
-        # for i, mot in enumerate(mots):
-        #     score[i] = Levenshtein.compareString(content, mot)
+        for line in lines:
+            mot = line.strip()
+            mots.append(mot)
 
-        # motTrouver = mots[min(score, key=score.get)]
-        return word
+        for i, mot in enumerate(mots):
+            score[i] = Levenshtein.compareString(word, mot)
+
+        motTrouver = mots[min(score, key=score.get)]
+        return [word, motTrouver]
 
     def processOne(self, file):
         ocr = Ocr()
