@@ -2,8 +2,6 @@ import numpy as np
 
 class Levenshtein:
     def compareString(chaine1, chaine2):
-        print(chaine1)
-        print(chaine2)
         taille_chaine1 = len(chaine1) + 1
         taille_chaine2 = len(chaine2) + 1
         levenshtein_matrix = np.zeros ((taille_chaine1, taille_chaine2))

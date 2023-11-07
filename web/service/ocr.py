@@ -21,15 +21,20 @@ class Ocr:
         _, binary_image = cv2.threshold(source_gray, 128, 255, cv2.THRESH_BINARY)
         inverted_image = cv2.bitwise_not(binary_image)
         contours, _ = cv2.findContours(inverted_image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
+        # Sort the arrays based on the first coordinate (x-coordinate)
+        contours = sorted(contours, key=lambda arr: arr[0][0][0])
         # Create a temporary directory to save the extracted shapes
         output_dir = tempfile.mkdtemp()
 
         for i, contour in enumerate(contours):
             x, y, w, h = cv2.boundingRect(contour)
             shape = source_gray[y:y+h, x:x+w]
+
+            border_size = 5
+            shape_with_border = cv2.copyMakeBorder(shape, border_size, border_size, border_size, border_size, cv2.BORDER_CONSTANT, value=(255, 255, 255))
+
             shape_filename = os.path.join(output_dir, f"letter_{i}.png")
-            cv2.imwrite(shape_filename, shape)
+            cv2.imwrite(shape_filename, shape_with_border)
 
         return output_dir
 
