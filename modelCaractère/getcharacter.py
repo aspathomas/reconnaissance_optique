@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import os
 
-source_image = cv2.imread("lettre.webp")
+source_image = cv2.imread("caractere.png")
 source_gray = cv2.cvtColor(source_image, cv2.COLOR_BGR2GRAY)
 _, binary_image = cv2.threshold(source_gray, 128, 255, cv2.THRESH_BINARY)
 inverted_image = cv2.bitwise_not(binary_image)

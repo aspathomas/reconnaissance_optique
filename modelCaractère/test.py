@@ -10,7 +10,7 @@ loaded_model = keras.models.load_model('emnist_model.keras')
 
 # Convert the prediction to a character label
 character_labels = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-png_files = glob.glob(os.path.join('car/', '*.png'))
+png_files = glob.glob(os.path.join('car/', '*.jpg'))
 print(png_files)
 for image_path in png_files:
     input_image = Image.open(image_path)
