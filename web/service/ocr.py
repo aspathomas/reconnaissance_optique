@@ -10,7 +10,7 @@ class Ocr:
     loaded_model = keras.models.load_model('emnist_model.keras')
 
     # Convert the prediction to a character label
-    character_labels = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+    character_labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
     def extractShapes(self, file):
         with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as temp_file:
