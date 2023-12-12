@@ -9,9 +9,10 @@ import os
 loaded_model = keras.models.load_model('emnist_model.keras')
 
 # Convert the prediction to a character label
-character_labels = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+character_labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 png_files = glob.glob(os.path.join('car/', '*.jpg'))
-print(png_files)
+n_car = 0
+n_correct = 0
 for image_path in png_files:
     input_image = Image.open(image_path)
     input_image = input_image.convert('L')  # Convert to grayscale
@@ -29,5 +30,9 @@ for image_path in png_files:
     image = image[1]
     # Make a prediction using the model
     prediction = loaded_model.predict(input_image)
+    n_car += 1
+    if character_labels[np.argmax(prediction)] == image[0].upper():
+        n_correct +=1
     print(np.argmax(prediction))
     print(f'''vrai caractère : {image};   result : {character_labels[np.argmax(prediction)]}''')
+print(f'Percentage of characters found: {n_correct / n_car * 100:.2f}%')
