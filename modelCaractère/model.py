@@ -1,5 +1,6 @@
 import numpy as np
 from keras.models import Sequential
+from keras.src.callbacks import ModelCheckpoint
 from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
 from keras.utils import to_categorical
 from keras.datasets import mnist
@@ -16,21 +17,21 @@ dataset_dir = 'car'
 def load_and_preprocess_data(dataset_dir):
     data = []
     labels = []
-
-    for n1 in range(10):
-        for n2 in range(10):
-            for n3 in range(10):
-                for letter in os.listdir(dataset_dir):
-                    letter_path = os.path.join(dataset_dir, letter)
-                    # print(f'Label: {letter[0].upper()}, Image Path: {letter_path}')
-                    img = load_img(letter_path, target_size=(28, 28), grayscale=True)
-                    img_array = img_to_array(img)
-                    img_with_border = cv2.copyMakeBorder(img_array, n1*10, n2*10, n3*10, n2*10, cv2.BORDER_CONSTANT, value=(255, 255, 255))
-                    resized_img = cv2.resize(img_with_border, (28, 28))
-                    data.append(resized_img)
-                    labels.append(letter[0].upper())
-        # if letter[0] == 'A':
-        #     cv2.imwrite('test.jpg', img_array)
+    n = 5
+    for n1 in range(n):
+        for n2 in range(n):
+            for n3 in range(n):
+                for n4 in range(n):
+                    for dataset_dir in ['car', 'car2', 'car3']:
+                        for letter in os.listdir(dataset_dir):
+                            letter_path = os.path.join(dataset_dir, letter)
+                            # print(f'Label: {letter[0].upper()}, Image Path: {letter_path}')
+                            img = load_img(letter_path, target_size=(28, 28), grayscale=True)
+                            img_array = img_to_array(img)
+                            img_with_border = cv2.copyMakeBorder(img_array, n1*10, n2*10, n3*10, n4*10, cv2.BORDER_CONSTANT, value=(255, 255, 255))
+                            resized_img = cv2.resize(img_with_border, (28, 28))
+                            data.append(resized_img)
+                            labels.append(letter[0].upper())
 
     data = np.array(data, dtype='float32') / 255.0
     labels = np.array(labels)
@@ -62,7 +63,6 @@ model.add(Dense(26, activation='softmax'))
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
 # Train the model
-print(train_labels)
 model.fit(train_data, train_labels, epochs=10, batch_size=128, validation_data=(test_data, test_labels))
 
 # Evaluate the model
