@@ -35,4 +35,4 @@ for image_path in png_files:
         n_correct +=1
     print(np.argmax(prediction))
     print(f'''vrai caractère : {image};   result : {character_labels[np.argmax(prediction)]}''')
-print(f'Percentage of characters found: {n_correct / n_car * 100:.2f}%')
+print(f'Pourcentage de caractères trouvés: {n_correct / n_car * 100:.2f}%')

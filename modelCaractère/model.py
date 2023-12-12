@@ -59,14 +59,14 @@ model.add(Flatten())
 model.add(Dense(64, activation='relu'))
 model.add(Dense(26, activation='softmax'))
 
-# Compile the model
+# Compiler le modèle
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
-# Train the model
+# Former le modèle
 model.fit(train_data, train_labels, epochs=10, batch_size=128, validation_data=(test_data, test_labels))
 
-# Evaluate the model
+# Évaluer le modèle
 test_loss, test_acc = model.evaluate(test_data, test_labels)
 print('Test accuracy:', test_acc)
-# Save the model to a file
+# Enregistrer le modèle dans un fichier
 model.save('emnist_model.keras')

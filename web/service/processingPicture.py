@@ -13,9 +13,10 @@ class ProcessingPicture:
         ocr = Ocr()
         output_dir = ocr.extractShapes(file)
         png_files = glob.glob(os.path.join(output_dir + '/', '*.png'))
+        png_files = sorted(png_files, key=lambda x: int(x.split('_')[-1].split('.')[0]))
         word = ""
         for png_file in png_files:
-            word += ocr.findLetter(png_file)
+            word += ocr.findLetter(png_file).lower()
         
         score = {}
         with open('mots.txt', 'r') as file:
