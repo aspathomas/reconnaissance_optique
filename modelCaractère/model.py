@@ -10,11 +10,7 @@ from keras.preprocessing.image import img_to_array, array_to_img, load_img
 import os
 import cv2
 
-# Hypothetical dataset directory containing images of letters
-dataset_dir = 'car'
-
-# Load and preprocess the dataset
-def load_and_preprocess_data(dataset_dir):
+def load_and_preprocess_data():
     data = []
     labels = []
     n = 5
@@ -25,7 +21,6 @@ def load_and_preprocess_data(dataset_dir):
                     for dataset_dir in ['car', 'car2', 'car3']:
                         for letter in os.listdir(dataset_dir):
                             letter_path = os.path.join(dataset_dir, letter)
-                            # print(f'Label: {letter[0].upper()}, Image Path: {letter_path}')
                             img = load_img(letter_path, target_size=(28, 28), grayscale=True)
                             img_array = img_to_array(img)
                             img_with_border = cv2.copyMakeBorder(img_array, n1*10, n2*10, n3*10, n4*10, cv2.BORDER_CONSTANT, value=(255, 255, 255))
@@ -44,12 +39,9 @@ def load_and_preprocess_data(dataset_dir):
     return data, categorical_labels
 
 
-# Load and preprocess the data
-data, labels = load_and_preprocess_data(dataset_dir)
+data, labels = load_and_preprocess_data()
 
-# Split the data into training and testing sets
 train_data, test_data, train_labels, test_labels = train_test_split(data, labels, test_size=0.2, random_state=42)
-# Build the CNN model
 model = Sequential()
 model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 1)))
 model.add(MaxPooling2D((2, 2)))
